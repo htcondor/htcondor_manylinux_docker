@@ -21,10 +21,10 @@ RUN ln -s /usr/share/aclocal/pkg.m4 /usr/local/share/aclocal-1.16/pkg.m4
 COPY build_scripts /build_scripts
 #RUN build_scripts/build_external.sh pcre 8.43
 RUN build_scripts/build_external.sh openssl 1.1.1d
-RUN build_scripts/build_external.sh voms 2.1.0-rc0
-RUN build_scripts/build_external.sh gct 6.2.1541705016
-RUN build_scripts/build_external.sh munge 0.5.13
-RUN build_scripts/build_external.sh boost 1.68.0
+RUN PKG_CONFIG_PATH=/usr/local/lib/pkgconfig:/usr/local/lib64/pkgconfig:/usr/lib64/pkgconfig build_scripts/build_external.sh voms 2.1.0-rc0
+RUN PKG_CONFIG_PATH=/usr/local/lib/pkgconfig:/usr/local/lib64/pkgconfig:/usr/lib64/pkgconfig build_scripts/build_external.sh gct 6.2.1541705016
+RUN PKG_CONFIG_PATH=/usr/local/lib/pkgconfig:/usr/local/lib64/pkgconfig:/usr/lib64/pkgconfig build_scripts/build_external.sh munge 0.5.13
+RUN PKG_CONFIG_PATH=/usr/local/lib/pkgconfig:/usr/local/lib64/pkgconfig:/usr/lib64/pkgconfig build_scripts/build_external.sh boost 1.68.0
 
 # Patch auditwheel
 RUN pushd $(dirname $(readlink -f $(which auditwheel)))/../lib/python?.?/site-packages/auditwheel && patch < /build_scripts/auditwheel.patch && popd
