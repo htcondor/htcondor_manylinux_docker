@@ -7,7 +7,7 @@ FROM quay.io/pypa/manylinux2010_x86_64:latest
 
 # Install minimal set of packages except for externals that we wish to build newer versions of
 RUN yum install -y "https://repo.opensciencegrid.org/osg/3.4/osg-3.4-el6-release-latest.rpm"
-RUN yum install -y readline-devel libicu-devel pam-devel cyrus-sasl-devel pcre-devel uuid-devel uuid-c++-devel libxml2-devel libtool byacc perl-Archive-Tar flex nss-devel c-ares-devel e2fsprogs-devel libselinux-devel python-devel krb5-devel keyutils-libs-devel openldap-devel scitokens-cpp-devel
+RUN yum install -y readline-devel libicu-devel pam-devel cyrus-sasl-devel pcre-devel uuid-devel uuid-c++-devel libxml2-devel libtool byacc perl-Archive-Tar flex nss-devel c-ares-devel e2fsprogs-devel libselinux-devel python-devel krb5-devel keyutils-libs-devel openldap-devel expat-devel scitokens-cpp-devel
 
 # Install cmake (latest available from PyPI)
 RUN /opt/python/cp37-cp37m/bin/pip install cmake && \
