@@ -19,7 +19,7 @@ SOURCE_DIR=$_CONDOR_SCRATCH_DIR/htcondor_source
 BUILD_DIR=$_CONDOR_SCRATCH_DIR/htcondor_pypi_build
 
 # derive tags & paths from python version tag
-PYTHON_TAG=$(echo $FULL_PYTHON_VERSION_TAG $i | grep -oP 'cp[0-9]+')
+PYTHON_TAG=$(echo $FULL_PYTHON_VERSION_TAG | grep -oP 'cp[0-9]+')
 PYTHON_VERSION_MAJOR=${PYTHON_TAG:2:1}
 PYTHON_VERSION_MINOR=${PYTHON_TAG:3}
 PYTHON_BASE_DIR=/opt/python/$PYTHON_TAG-$FULL_PYTHON_VERSION_TAG
@@ -35,8 +35,8 @@ rm -f $HTCONDOR_BRANCH.tar.gz
 # set up build environment
 export PATH=$PYTHON_BASE_DIR/bin:$PATH
 export PKG_CONFIG_PATH=$PYTHON_BASE_DIR/lib/pkgconfig:/usr/local/lib/pkgconfig:/usr/local/lib64/pkgconfig:/usr/lib64/pkgconfig
-export PYTHON_INCLUDE_DIR=$(python -c "from distutils.sysconfig import get_python_inc; print(get_python_inc())")
-export PYTHON_LIBRARY=$(python -c "import distutils.sysconfig as sysconfig; print(sysconfig.get_config_var('LIBDIR'))")
+export USE_PYTHON3_INCLUDE_DIR=$(python -c "import sysconfig; print(sysconfig.get_paths()['include'])")
+export USE_PYTHON3_EXT_SUFFIX=$(python -c "import sysconfig; print(sysconfig.get_config_var('EXT_SUFFIX'))")
 
 # create build directory
 mkdir -p $BUILD_DIR
@@ -49,30 +49,18 @@ cmake $SOURCE_DIR \
        -DHAVE_BOINC:BOOL=OFF \
        -DENABLE_JAVA_TESTS:BOOL=OFF \
        -DWITH_BLAHP:BOOL=OFF \
-       -DWITH_CREAM:BOOL=OFF \
-       -DWITH_BOINC:BOOL=OFF \
-       -DWITH_SCITOKENS:BOOL=OFF \
+       -DWITH_SCITOKENS:BOOL=ON \
        -DWANT_PYTHON_WHEELS:BOOL=ON \
        -DAPPEND_VERSION:STRING=$WHEEL_VERSION_IDENTIFIER \
-       -DPYTHON_INCLUDE_DIR:PATH=$PYTHON_INCLUDE_DIR \
-       -DPYTHON_LIBRARY:PATH=$PYTHON_LIBRARY \
+       -DUSE_PYTHON3_INCLUDE_DIR:PATH=$USE_PYTHON3_INCLUDE_DIR \
+       -DUSE_PYTHON3_EXT_SUFFIX:PATH=$USE_PYTHON3_EXT_SUFFIX \
        -DBUILDID:STRING=UW_Python_Wheel_Build
 
 # build targets
-if [ -d "bindings/python" ]; then
-    make -j$NPROC python_bindings wheel_classad_module wheel_htcondor
-    cd bindings/python
-    curl -LO https://raw.githubusercontent.com/htcondor/htcondor/V8_8-branch/build/packaging/pypi/setup.cfg
-else
-    make -j$NPROC
-    cd build/packaging/pypi
-    sed -i 's/ver_append = ""/ver_append = "'$WHEEL_VERSION_IDENTIFIER'"/' setup.py
-fi
+make -j$NPROC python3_bindings wheel_classad_module wheel_htcondor
 
-# put external libraries into path
-for extlibdir in $(find $BUILD_DIR/bld_external -name lib -type d); do
-    LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$extlibdir
-done
+# put boost external libraries into path
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
 LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$BUILD_DIR/src/condor_utils
 LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$BUILD_DIR/src/python-bindings
 LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$BUILD_DIR/src/classad/lib
@@ -80,6 +68,7 @@ LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$BUILD_DIR/src/classad
 export LD_LIBRARY_PATH
 
 # build wheel
+cd bindings/python
 python setup.py bdist_wheel
 
 # repair wheel
