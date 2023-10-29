@@ -2,9 +2,10 @@
 set -e
 
 # arguments
-FULL_PYTHON_VERSION_TAG=$1
-WHEEL_FILE=$2
-shift 2 # strip args for activate scripts
+CPU_ARCHITECTURE=$1
+FULL_PYTHON_VERSION_TAG=$2
+WHEEL_FILE=$3
+shift 3 # strip args for activate scripts
 
 # derive tags & paths from python version tag
 PYTHON_VERSION_MAJOR=${FULL_PYTHON_VERSION_TAG:2:1}
@@ -12,7 +13,7 @@ PYTHON_VERSION_MINOR=${PYTHON_TAG:3}
 
 # install miniconda and create environment
 export HOME=$_CONDOR_SCRATCH_DIR
-bash Miniconda3-latest-Linux-x86_64.sh -b -p $HOME/miniconda3
+bash Miniconda3-latest-Linux-${CPU_ARCHITECTURE}.sh -b -p $HOME/miniconda3
 source $HOME/miniconda3/bin/activate
 conda create -y -n wheeltest python=${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}
 conda activate wheeltest
@@ -21,4 +22,3 @@ conda activate wheeltest
 pip install $WHEEL_FILE
 python test_python_wheel.py
 exit $?
-

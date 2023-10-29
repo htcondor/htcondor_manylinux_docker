@@ -1,8 +1,9 @@
-universe = vanilla
+universe = docker
+docker_image = $(manylinux_docker_image)
 
 executable = test_python_wheel.sh
-arguments = $(python_version_tag) $(wheel_file)
-transfer_input_files = https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh, $(wheel_file), test_python_wheel.py
+arguments = $(cpu_architecture) $(python_version_tag) $(wheel_file)
+transfer_input_files = https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-$(cpu_architecture).sh, $(wheel_file), test_python_wheel.py
 
 log = test.log
 output = test.out
@@ -10,5 +11,6 @@ error = test.err
 
 request_memory = 1GB
 request_disk = 500MB
+requirements = (OpSysAndVer == "CentOS8")
 
 queue wheel_file matching files *.whl
