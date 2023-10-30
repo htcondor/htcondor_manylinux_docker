@@ -1,7 +1,8 @@
 # HTCondor manylinux Python Wheel Building Routines
 
 1. Choose which version of manylinux to build for. Versions currently available:
-   * `manylinux2014` - Builds inside CentOS 7-based Docker container.
+   * `manylinux2014` - Builds inside CentOS 7-based Docker container. (`x86_64` for HTCondor 23.0)
+   * `manylinux_2_28` - Builds inside AlmaLinux 8-based Docker container. (`x86_64` and `ARM` for HTCondor 23.x+)
 2. Once in the directory for the chosen manylinux version, if not yet built, build the Docker image:
    1. Update `latest_tag` to a unique version number (I usually use the latest version of HTCondor that I'm building for).
    2. Check that `build_docker_image.sh` is pointing to an appropriate Docker repository, and run it.

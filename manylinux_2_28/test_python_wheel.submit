@@ -1,0 +1,18 @@
+universe = docker
+# Could probably use a stock AlmaLinux 8 image, but the build image is handy to reuse.
+docker_image = $(manylinux_docker_image)
+
+executable = test_python_wheel.sh
+arguments = $(cpu_architecture) $(python_version_tag) $(wheel_file)
+transfer_input_files = https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-$(cpu_architecture).sh, $(wheel_file), test_python_wheel.py
+
+log = test.log
+output = test.out
+error = test.err
+
+request_memory = 1GB
+request_disk = 500MB
+# The CentOS7 nodes in CHTC can't do ARM emulation
+requirements = (OpSysAndVer == "CentOS8")
+
+queue wheel_file matching files *.whl
