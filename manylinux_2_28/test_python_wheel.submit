@@ -13,6 +13,6 @@ error = test.err
 request_memory = 1GB
 request_disk = 500MB
 # The CentOS7 nodes in CHTC can't do ARM emulation
-requirements = (OpSysAndVer == "CentOS8")
+requirements = (OpSysAndVer == "CentOS9")
 
 queue wheel_file matching files *.whl
