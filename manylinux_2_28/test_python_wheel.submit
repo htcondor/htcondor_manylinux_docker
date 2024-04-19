@@ -11,7 +11,7 @@ output = test.out
 error = test.err
 
 request_memory = 1GB
-request_disk = 500MB
+request_disk = 1.5GB
 # The CentOS7 nodes in CHTC can't do ARM emulation
 requirements = (OpSysAndVer == "CentOS9")
 

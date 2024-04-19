@@ -9,6 +9,6 @@ output = test.out
 error = test.err
 
 request_memory = 1GB
-request_disk = 500MB
+request_disk = 1.5GB
 
 queue wheel_file matching files *.whl
