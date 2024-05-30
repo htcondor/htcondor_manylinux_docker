@@ -20,5 +20,5 @@ conda activate wheeltest
 
 # install htcondor and run test script
 pip install $WHEEL_FILE
-python test_python_wheel.py
+python test_python_wheel.py && python test_python_v2_wheel.py
 exit $?
