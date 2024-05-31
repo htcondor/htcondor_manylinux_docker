@@ -29,7 +29,7 @@ docker_image="htcondor/htcondor_manylinux_2_28_${cpu_architecture}:$(head -n 1 l
         fi
         
         mkdir -p "$tmpdir"
-        cp *_python_wheel.submit *_python_wheel.sh *_python_wheel.py "$tmpdir"
+        cp *_python_wheel.submit *_python_wheel.sh *_python*_wheel.py "$tmpdir"
 
         # build the main dag
         echo
