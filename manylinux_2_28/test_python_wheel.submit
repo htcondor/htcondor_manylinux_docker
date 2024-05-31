@@ -4,7 +4,7 @@ docker_image = $(manylinux_docker_image)
 
 executable = test_python_wheel.sh
 arguments = $(cpu_architecture) $(python_version_tag) $(wheel_file)
-transfer_input_files = https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-$(cpu_architecture).sh, $(wheel_file), test_python_wheel.py
+transfer_input_files = https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-$(cpu_architecture).sh, $(wheel_file), test_python_wheel.py, test_python_v2_wheel.py
 
 log = test.log
 output = test.out
