@@ -1,3 +1,5 @@
+cp36m
+cp37m
 cp38
 cp39
 cp310
