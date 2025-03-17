@@ -9,7 +9,7 @@ output = build.out
 error = build.err
 
 request_cpus = 2
-request_memory = 4GB
+request_memory = 5GB
 request_disk = 1.5GB
 
 # put job on hold if taking longer than 3 hours
