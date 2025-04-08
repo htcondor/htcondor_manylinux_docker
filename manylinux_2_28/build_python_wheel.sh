@@ -49,6 +49,7 @@ cmake $SOURCE_DIR \
        -DHAVE_BOINC:BOOL=OFF \
        -DENABLE_JAVA_TESTS:BOOL=OFF \
        -DWITH_BLAHP:BOOL=OFF \
+       -DWITH_LIBVIRT:BOOL=OFF \
        -DWITH_SCITOKENS:BOOL=ON \
        -DWANT_PYTHON_WHEELS:BOOL=ON \
        -DAPPEND_VERSION:STRING=$WHEEL_VERSION_IDENTIFIER \
@@ -57,7 +58,9 @@ cmake $SOURCE_DIR \
        -DBUILDID:STRING=UW_Python_Wheel_Build
 
 # build targets
-make -j$NPROC python3_bindings wheel_classad_module wheel_htcondor
+make -j$NPROC python3_bindings
+make -j$NPROC wheel_classad_module
+make -j$NPROC wheel_htcondor
 
 # put boost external libraries into path
 LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
