@@ -8,7 +8,7 @@ CURL="curl -fsSL" # silent and follow redirects
 
 function boost {
     local basename=boost_${1//\./_}
-    local src_url=http://parrot.cs.wisc.edu/externals/${basename}.tar.gz
+    local src_url=https://htcss-downloads.chtc.wisc.edu/externals/${basename}.tar.gz
 
     $CURL -o ${basename}.tar.gz ${src_url}
 
@@ -22,7 +22,7 @@ function boost {
         # build boost for every version of python by adding to user-config.jam
         local pythons=""
         echo "{" > tools/build/src/user-config.jam
-        for i in /opt/python/cp*; do
+        for i in /opt/python/cp3*[0-9]; do
             local full_ver=$(basename $i | grep -oP '(?<=^cp)[0-9]+')
             local majv=${full_ver:0:1}
             local minv=${full_ver:1}
