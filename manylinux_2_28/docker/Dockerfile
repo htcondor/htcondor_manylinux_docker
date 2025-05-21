@@ -16,10 +16,10 @@ RUN yum install -y readline-devel libicu-devel pam-devel cyrus-sasl-devel uuid-d
 
 # Build external packages
 COPY build_scripts /build_scripts
-RUN PKG_CONFIG_PATH=/usr/local/lib/pkgconfig:/usr/local/lib64/pkgconfig:/usr/lib64/pkgconfig build_scripts/build_external.sh boost 1.83.0
+RUN PKG_CONFIG_PATH=/usr/local/lib/pkgconfig:/usr/local/lib64/pkgconfig:/usr/lib64/pkgconfig build_scripts/build_external.sh boost 1.88.0
 
-# Patch auditwheel
-RUN pushd $(dirname $(readlink -f $(which auditwheel)))/../lib/python[1-9].[1-9]*/site-packages/auditwheel && patch < /build_scripts/auditwheel.patch && popd
+# Install setuptools and wheel for more recent Python versions
+RUN for dir in /opt/python/cp3*[0-9]/bin; do (PATH=$dir:$PATH pip install setuptools wheel); done
 
 # Cleanup
 RUN rm -rf build_scripts
