@@ -12,6 +12,6 @@ error = test.err
 
 request_memory = 1GB
 request_disk = 2GB
-requirements = (Arch == "$(cpu_architecture)")
+requirements = (Arch == "$(cpu_architecture)") && (Machine == "arm-e0000.chtc.wisc.edu" || Machine == "htcss2000.chtc.wisc.edu"  || Machine == "htcss2001.chtc.wisc.edu"  || Machine == "htcss2002.chtc.wisc.edu")
 
 queue wheel_file matching files *.whl
