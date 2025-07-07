@@ -11,6 +11,7 @@ error = build.err
 request_cpus = 2
 request_memory = 5GB
 request_disk = 1.5GB
+requirements = (Machine == "arm-e0000.chtc.wisc.edu" || Machine == "htcss2000.chtc.wisc.edu" || Machine == "htcss2001.chtc.wisc.edu" || Machine == "htcss2002.chtc.wisc.edu")
 
 # put job on hold if taking longer than 3 hours
 periodic_hold = (JobStatus == 2) && ((CurrentTime - EnteredCurrentStatus) > 10800)
