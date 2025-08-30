@@ -59,11 +59,7 @@ cmake $SOURCE_DIR \
 
 # build targets
 make -j$NPROC python3_bindings
-make -j$NPROC wheel_classad_module
-make -j$NPROC wheel_htcondor
 
-# put boost external libraries into path
-LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
 LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$BUILD_DIR/src/condor_utils
 LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$BUILD_DIR/src/python-bindings
 LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$BUILD_DIR/src/classad/lib
