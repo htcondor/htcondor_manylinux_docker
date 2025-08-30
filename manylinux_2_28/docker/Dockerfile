@@ -1,23 +1,14 @@
 ########################
 # Docker file to setup a manylinux_2_28 wheel build environment for HTCondor
 # manylinux_2_28 (AlmaLinux 8)
-# Tim Theisen October 2023
+# Tim Theisen August 2025
 
 FROM quay.io/pypa/manylinux_2_28_x86_64
 
-# Add in EPEL
-RUN yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
-
-# Enable code ready build repository
-RUN /usr/bin/crb enable
-
-# Install minimal set of packages except for externals that we wish to build newer versions of
-RUN yum install -y readline-devel libicu-devel pam-devel cyrus-sasl-devel uuid-devel libuuid-devel libxml2-devel libtool byacc perl-Archive-Tar flex nss-devel e2fsprogs-devel libselinux-devel krb5-devel keyutils-libs-devel openldap-devel libedit libedit-devel libcurl-devel pcre2-devel openssl-devel voms-devel munge-devel scitokens-cpp-devel
+# Install set of packages needed to build condor
+RUN dnf install -y pam-devel libuuid-devel nss-devel krb5-devel openldap-devel libcurl-devel pcre2-devel openssl-devel voms-devel munge-devel scitokens-cpp-devel
 
 # Install setuptools and wheel for more recent Python versions
 RUN for dir in /opt/python/cp3*[0-9]/bin; do (PATH=$dir:$PATH pip install setuptools wheel); done
-
-# Cleanup
-RUN rm -rf build_scripts
 
 CMD ["/bin/bash"]
