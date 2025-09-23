@@ -15,6 +15,8 @@ PYTHON_VERSION_MINOR=${PYTHON_TAG:3}
 export HOME=$_CONDOR_SCRATCH_DIR
 bash Miniconda3-latest-Linux-${CPU_ARCHITECTURE}.sh -b -p $HOME/miniconda3
 source $HOME/miniconda3/bin/activate
+conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main
+conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r
 conda create -y -n wheeltest python=${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}
 conda activate wheeltest
 
