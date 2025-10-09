@@ -12,7 +12,7 @@ RUN yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.n
 RUN /usr/bin/crb enable
 
 # Install minimal set of packages except for externals that we wish to build newer versions of
-RUN yum install -y readline-devel libicu-devel pam-devel cyrus-sasl-devel uuid-devel libuuid-devel libxml2-devel libtool byacc perl-Archive-Tar flex nss-devel e2fsprogs-devel libselinux-devel krb5-devel keyutils-libs-devel openldap-devel libedit libedit-devel libcurl-devel pcre2-devel openssl-devel voms-devel munge-devel scitokens-cpp-devel
+RUN yum install -y readline-devel libicu-devel pam-devel cyrus-sasl-devel uuid-devel libuuid-devel libxml2-devel libtool byacc perl-Archive-Tar flex nss-devel e2fsprogs-devel libselinux-devel krb5-devel keyutils-libs-devel openldap-devel libedit libedit-devel libcurl-devel pcre2-devel openssl-devel voms-devel munge-devel scitokens-cpp-devel sqlite-devel
 
 # Build external packages
 COPY build_scripts /build_scripts
