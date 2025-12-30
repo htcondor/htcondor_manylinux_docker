@@ -32,6 +32,10 @@ mkdir -p $SOURCE_DIR
 tar -xf $HTCONDOR_BRANCH.tar.gz --strip-components=1 -C $SOURCE_DIR
 rm -f $HTCONDOR_BRANCH.tar.gz
 
+# patch out expat from security libraries
+sed -i -e '/find_multiple.*EXPAT/d' $SOURCE_DIR/build/cmake/CondorConfigure.cmake
+sed -i -e '/job_ec2_basic/d' $SOURCE_DIR/src/condor_tests/CMakeLists.txt
+
 # set up build environment
 export PATH=$PYTHON_BASE_DIR/bin:$PATH
 export PKG_CONFIG_PATH=$PYTHON_BASE_DIR/lib/pkgconfig:/usr/local/lib/pkgconfig:/usr/local/lib64/pkgconfig:/usr/lib64/pkgconfig
