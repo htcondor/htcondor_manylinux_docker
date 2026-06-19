@@ -63,7 +63,7 @@ make -j$NPROC wheel_classad_module
 make -j$NPROC wheel_htcondor
 
 # Strip out debug symbols
-find -type f -exec strip --strip-unneeded {} \;
+find -type f -name \*.so\* -exec strip --strip-unneeded {} \;
 
 # put boost external libraries into path
 LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
