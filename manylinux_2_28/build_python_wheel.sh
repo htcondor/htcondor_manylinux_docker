@@ -62,6 +62,9 @@ make -j$NPROC python3_bindings
 make -j$NPROC wheel_classad_module
 make -j$NPROC wheel_htcondor
 
+# Strip out debug symbols
+find . -type f -name \*.so\* -exec strip --strip-unneeded {} +
+
 # put boost external libraries into path
 LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
 LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$BUILD_DIR/src/condor_utils
