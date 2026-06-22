@@ -9,7 +9,7 @@ output = build.out
 error = build.err
 
 request_cpus = 8
-request_memory = 10GB
+request_memory = 12GB
 request_disk = 2GB
 requirements = (Arch == "$(cpu_architecture)") && (Machine == "arm-e0000.chtc.wisc.edu" || Machine == "htcss2000.chtc.wisc.edu"  || Machine == "htcss2001.chtc.wisc.edu"  || Machine == "htcss2002.chtc.wisc.edu")
 
