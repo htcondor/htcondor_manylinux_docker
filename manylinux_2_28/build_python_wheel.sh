@@ -65,6 +65,9 @@ cmake $SOURCE_DIR \
 # build targets
 make -j$NPROC python3_bindings
 
+# Strip out debug symbols
+find . -type f -name \*.so\* -exec strip --strip-unneeded {} +
+
 LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$BUILD_DIR/src/condor_utils
 LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$BUILD_DIR/src/python-bindings
 LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$BUILD_DIR/src/classad/lib
