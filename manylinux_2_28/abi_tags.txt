@@ -1,7 +1,7 @@
-cp38
 cp39
 cp310
 cp311
 cp312
 cp313
 cp314
+cp315
